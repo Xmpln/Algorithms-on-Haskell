@@ -30,12 +30,11 @@ isStringBeautiful (x:xs) Nothing =
   then True
   else isStringBeautiful xs (Just x)
   
+isStringBeautiful [] _ = True
 isStringBeautiful (x:xs) (Just prevChar) =
   if x == prevChar && x /= '?'
   then False
   else isStringBeautiful xs (Just x)
-  
-isStringBeautiful [] _ = True
 
 decorateString :: [Char] -> [Char] -> [Char]
 decorateString word formattedWord =
@@ -52,6 +51,7 @@ decorateString word formattedWord =
       [] -> decorateString xs (allowedStart:[])
       (r:rs) -> decorateString xs (allowedMiddle:r:rs)
     _   -> decorateString xs (x:formattedWord)
+  [] -> []
   where
     anyChar = alphabet !! 0
     nextChar = word !! 1
